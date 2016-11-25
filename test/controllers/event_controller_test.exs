@@ -11,22 +11,22 @@ defmodule Fpbackend.EventControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, event_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
+    assert json_response(conn, 200) == []
   end
 
   test "shows chosen resource", %{conn: conn} do
     event = Repo.insert! %Event{}
     conn = get conn, event_path(conn, :show, event)
-    assert json_response(conn, 200)["data"] == %{"id" => event.id,
-      "name" => event.name,
+    assert json_response(conn, 200) == %{"id" => event.id,
+      "name" => "",
       "description" => event.description,
-      "num_participants" => event.num_participants,
-      "minimum_age" => event.minimum_age,
-      "price" => event.price,
-      "date_start" => event.date_start,
-      "date_end" => event.date_end,
-      "reg_date_open" => event.reg_date_open,
-      "reg_date_close" => event.reg_date_close,
+      "num_participants" => 1,
+      "minimum_age" => 0,
+      "price" => 0,
+      "date_start" => "0000-00-00",
+      "date_end" => "0000-00-00",
+      "reg_date_open" => "0000-00-00T00:00:00",
+      "reg_date_close" => "0000-00-00T00:00:00",
       "rules" => event.rules}
   end
 
@@ -38,7 +38,7 @@ defmodule Fpbackend.EventControllerTest do
 
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, event_path(conn, :create), event: @valid_attrs
-    assert json_response(conn, 201)["data"]["id"]
+    assert json_response(conn, 201)["id"]
     assert Repo.get_by(Event, @valid_attrs)
   end
 
@@ -50,7 +50,7 @@ defmodule Fpbackend.EventControllerTest do
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
     event = Repo.insert! %Event{}
     conn = put conn, event_path(conn, :update, event), event: @valid_attrs
-    assert json_response(conn, 200)["data"]["id"]
+    assert json_response(conn, 200)["id"]
     assert Repo.get_by(Event, @valid_attrs)
   end
 
