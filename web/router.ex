@@ -7,7 +7,8 @@ defmodule Fpbackend.Router do
 
   scope "/api", Fpbackend do
     pipe_through :api
-    
+
     resources "/events", EventController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit]
   end
 end
