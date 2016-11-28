@@ -9,6 +9,10 @@ defmodule Fpbackend.EventView do
     render_one(event, Fpbackend.EventView, "event.json")
   end
 
+  def render("show_all.json", %{event: event}) do
+    render_one(event, Fpbackend.EventView, "event_all.json")
+  end
+
   def render("event.json", %{event: event}) do
     %{id: event.id,
       name: event.name,
@@ -21,5 +25,10 @@ defmodule Fpbackend.EventView do
       reg_date_open: event.reg_date_open,
       reg_date_close: event.reg_date_close,
       rules: event.rules}
+  end
+
+  def render("event_all.json", %{event: event}) do
+     render("event.json", %{event: event})
+     |> Map.put_new(:activities, render_many(event.activities, Fpbackend.ActivityView, "activity_basic.json", as: :activity))
   end
 end

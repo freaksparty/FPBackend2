@@ -1,6 +1,7 @@
 defmodule Fpbackend.Event do
   use Fpbackend.Web, :model
 
+
   schema "events" do
     field :name, :string
     field :description, :string
@@ -12,6 +13,8 @@ defmodule Fpbackend.Event do
     field :reg_date_open, Ecto.DateTime
     field :reg_date_close, Ecto.DateTime
     field :rules, :string
+
+    has_many :activities, Fpbackend.Activity
   end
 
   @doc """

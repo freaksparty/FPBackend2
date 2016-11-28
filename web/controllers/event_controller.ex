@@ -29,6 +29,11 @@ defmodule Fpbackend.EventController do
     render(conn, "show.json", event: event)
   end
 
+  def all_nested(conn, %{"event_id" => id}) do
+    event = Repo.get! nested_all_query, id
+    render(conn, "show_all.json", event: event)
+  end
+
   def update(conn, %{"id" => id, "event" => event_params}) do
     event = Repo.get!(Event, id)
     changeset = Event.changeset(event, event_params)
@@ -51,5 +56,11 @@ defmodule Fpbackend.EventController do
     Repo.delete!(event)
 
     send_resp(conn, :no_content, "")
+  end
+
+  defp nested_all_query do
+    from event in Event,
+      left_join: activities in assoc(event, :activities),
+      preload: [activities: activities]
   end
 end
