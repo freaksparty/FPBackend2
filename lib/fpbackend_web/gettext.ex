@@ -1,4 +1,4 @@
-defmodule Fpbackend.Gettext do
+defmodule FpbackendWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 

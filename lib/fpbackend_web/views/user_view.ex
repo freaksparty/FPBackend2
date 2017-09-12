@@ -1,4 +1,4 @@
-defmodule Fpbackend.UserView do
+defmodule FpbackendWeb.UserView do
   use Fpbackend.Web, :view
 
   def render("index.json", %{users: users}) do

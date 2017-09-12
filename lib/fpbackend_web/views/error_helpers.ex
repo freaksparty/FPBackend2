@@ -1,4 +1,4 @@
-defmodule Fpbackend.ErrorHelpers do
+defmodule FpbackendWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """

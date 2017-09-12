@@ -1,4 +1,4 @@
-defmodule Fpbackend.ConnCase do
+defmodule FpbackendWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule Fpbackend.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Fpbackend.Router.Helpers
+      import FpbackendWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Fpbackend.Endpoint
+      @endpoint FpbackendWeb.Endpoint
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule Fpbackend.User do
+defmodule FpbackendWeb.User do
   use Fpbackend.Web, :model
 
   schema "users" do

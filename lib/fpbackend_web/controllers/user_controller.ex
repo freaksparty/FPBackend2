@@ -1,7 +1,7 @@
-defmodule Fpbackend.UserController do
+defmodule FpbackendWeb.UserController do
   use Fpbackend.Web, :controller
 
-  alias Fpbackend.User
+  alias FpbackendWeb.User
 
   def index(conn, _params) do
     users = Repo.all(User)

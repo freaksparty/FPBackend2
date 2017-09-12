@@ -1,7 +1,7 @@
-defmodule Fpbackend.Endpoint do
+defmodule FpbackendWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :fpbackend
 
-  socket "/socket", Fpbackend.UserSocket
+  socket "/socket", FpbackendWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -36,5 +36,5 @@ defmodule Fpbackend.Endpoint do
     key: "_fpbackend_key",
     signing_salt: "OMQFwqGV"
 
-  plug Fpbackend.Router
+  plug FpbackendWeb.Router
 end

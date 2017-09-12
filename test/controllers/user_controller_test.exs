@@ -1,5 +1,5 @@
 defmodule Fpbackend.UserControllerTest do
-  use Fpbackend.ConnCase
+  use FpbackendWeb.ConnCase
 
   alias Fpbackend.User
   @valid_attrs %{blacklist: false, borndate: %{day: 17, month: 4, year: 2010}, checked: true, dni: "some content", email: "some@some.com", login: "some content", name: "some content", password: "some content", phone: "some content", shirt_size: "some content"}

@@ -1,4 +1,4 @@
-defmodule Fpbackend.UserSocket do
+defmodule FpbackendWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels

@@ -10,10 +10,10 @@ config :fpbackend,
   ecto_repos: [Fpbackend.Repo]
 
 # Configures the endpoint
-config :fpbackend, Fpbackend.Endpoint,
+config :fpbackend, FpbackendWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "J6FmWiIT4y21W0wJkuZsx31xPSzbRP5K8TSriO9BwdaJDxXs0yabyA0uBN+FegIt",
-  render_errors: [view: Fpbackend.ErrorView, accepts: ~w(json)],
+  render_errors: [view: FpbackendWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Fpbackend.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

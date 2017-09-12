@@ -11,7 +11,7 @@ defmodule Fpbackend do
       # Start the Ecto repository
       supervisor(Fpbackend.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Fpbackend.Endpoint, []),
+      supervisor(FpbackendWeb.Endpoint, []),
       # Start your own worker by calling: Fpbackend.Worker.start_link(arg1, arg2, arg3)
       # worker(Fpbackend.Worker, [arg1, arg2, arg3]),
     ]
@@ -25,7 +25,7 @@ defmodule Fpbackend do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Fpbackend.Endpoint.config_change(changed, removed)
+    FpbackendWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

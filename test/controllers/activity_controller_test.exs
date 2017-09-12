@@ -1,5 +1,5 @@
 defmodule Fpbackend.ActivityControllerTest do
-  use Fpbackend.ConnCase
+  use FpbackendWeb.ConnCase
 
   alias Fpbackend.Activity
   @valid_attrs %{date_end: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, date_start: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, description: "some content", image_url: "some content", name: "some content", num_participants: 42, official: true, reg_date_close: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, reg_date_open: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, type: 42}
@@ -42,7 +42,7 @@ defmodule Fpbackend.ActivityControllerTest do
   #   assert json_response(conn, 201)["id"]
   #   assert Repo.get_by(Activity, @valid_attrs)
   # end
-  # 
+  #
   # test "does not create resource and renders errors when data is invalid", %{conn: conn} do
   #   conn = post conn, event_activity_path(conn, :create), activity: @invalid_attrs
   #   assert json_response(conn, 422)["errors"] != %{}

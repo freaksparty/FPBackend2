@@ -1,4 +1,4 @@
-defmodule Fpbackend.ErrorView do
+defmodule FpbackendWeb.ErrorView do
   use Fpbackend.Web, :view
 
   def render("404.json", _assigns) do

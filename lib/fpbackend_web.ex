@@ -28,27 +28,28 @@ defmodule Fpbackend.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: FpbackendWeb
 
       alias Fpbackend.Repo
       import Ecto
       import Ecto.Query
 
-      import Fpbackend.Router.Helpers
-      import Fpbackend.Gettext
+      import FpbackendWeb.Router.Helpers
+      import FpbackendWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "web/templates"
+      use Phoenix.View, root: "lib/fpbackend_web/templates",
+                        namespace: FpbackendWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
-      import Fpbackend.Router.Helpers
-      import Fpbackend.ErrorHelpers
-      import Fpbackend.Gettext
+      import FpbackendWeb.Router.Helpers
+      import FpbackendWeb.ErrorHelpers
+      import FpbackendWeb.Gettext
     end
   end
 
@@ -65,7 +66,7 @@ defmodule Fpbackend.Web do
       alias Fpbackend.Repo
       import Ecto
       import Ecto.Query
-      import Fpbackend.Gettext
+      import FpbackendWeb.Gettext
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule Fpbackend.ChannelCase do
+defmodule FpbackendWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Fpbackend.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint Fpbackend.Endpoint
+      @endpoint FpbackendWeb.Endpoint
     end
   end
 

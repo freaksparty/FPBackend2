@@ -1,4 +1,4 @@
-defmodule Fpbackend.ChangesetView do
+defmodule FpbackendWeb.ChangesetView do
   use Fpbackend.Web, :view
 
   @doc """
