@@ -14,7 +14,7 @@ defmodule FpbackendWeb.Event do
     field :reg_date_close, Timex.Ecto.DateTime
     field :rules, :string
 
-    has_many :activities, Fpbackend.Activity
+    has_many :activities, FpbackendWeb.Activity
   end
 
   @doc """
