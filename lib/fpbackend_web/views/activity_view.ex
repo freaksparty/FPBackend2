@@ -2,11 +2,11 @@ defmodule FpbackendWeb.ActivityView do
   use Fpbackend.Web, :view
 
   def render("index.json", %{activities: activities}) do
-    render_many(activities, Fpbackend.ActivityView, "activity.json")
+    render_many(activities, FpbackendWeb.ActivityView, "activity.json")
   end
 
   def render("show.json", %{activity: activity}) do
-    render_one(activity, Fpbackend.ActivityView, "activity.json")
+    render_one(activity, FpbackendWeb.ActivityView, "activity.json")
   end
 
   def render("activity.json", %{activity: activity}) do

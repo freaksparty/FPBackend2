@@ -20,7 +20,7 @@ defmodule FpbackendWeb.EventController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
+        |> render(FpbackendWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -44,7 +44,7 @@ defmodule FpbackendWeb.EventController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
+        |> render(FpbackendWeb.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

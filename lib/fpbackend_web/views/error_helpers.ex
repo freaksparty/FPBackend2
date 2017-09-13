@@ -21,9 +21,9 @@ defmodule FpbackendWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Fpbackend.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(FpbackendWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Fpbackend.Gettext, "errors", msg, opts)
+      Gettext.dgettext(FpbackendWeb.Gettext, "errors", msg, opts)
     end
   end
 end

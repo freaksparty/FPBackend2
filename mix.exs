@@ -32,10 +32,12 @@ defmodule Fpbackend.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:mariaex, ">= 0.0.0"},
+     {:phoenix_ecto, "~> 3.2.0"},
+     {:mariaex, "~> 0.8.2"},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:timex, "~> 3.0"},
+     {:timex_ecto, "~> 3.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

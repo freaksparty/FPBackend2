@@ -8,10 +8,10 @@ defmodule FpbackendWeb.Event do
     field :num_participants, :integer
     field :minimum_age, :integer
     field :price, :integer
-    field :date_start, Ecto.Date
-    field :date_end, Ecto.Date
-    field :reg_date_open, Ecto.DateTime
-    field :reg_date_close, Ecto.DateTime
+    field :date_start, Timex.Ecto.Date
+    field :date_end, Timex.Ecto.Date
+    field :reg_date_open, Timex.Ecto.DateTime
+    field :reg_date_close, Timex.Ecto.DateTime
     field :rules, :string
 
     has_many :activities, Fpbackend.Activity
@@ -26,4 +26,6 @@ defmodule FpbackendWeb.Event do
     |> validate_required([:name, :description, :num_participants, :minimum_age, :price, :date_start, :date_end, :reg_date_open, :reg_date_close, :rules])
     |> unique_constraint(:name)
   end
+
+  #TODO Refactor validations
 end

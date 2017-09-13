@@ -48,5 +48,7 @@ defmodule FpbackendWeb.User do
     end
   end
 
+  #TODO Refactor validations
+
   defp do_hash(value), do: :crypto.hash(:sha512, value) |> Base.encode16 |> String.downcase
 end
