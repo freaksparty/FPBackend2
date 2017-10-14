@@ -18,7 +18,7 @@ defmodule Fpbackend.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Fpbackend, []},
-     applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
+     applications: [:corsica, :phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :mariaex]]
   end
 
@@ -37,7 +37,10 @@ defmodule Fpbackend.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:timex, "~> 3.0"},
-     {:timex_ecto, "~> 3.0"}]
+     {:timex_ecto, "~> 3.0"},
+     {:comeonin, "~> 4.0"},
+     {:bcrypt_elixir, "~> 0.12"},
+     {:corsica, "~> 1.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

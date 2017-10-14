@@ -29,3 +29,5 @@ config :fpbackend, Fpbackend.Repo,
   database: "fpbackend_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :fpbackend, :frontend_domains_allowed, "*"

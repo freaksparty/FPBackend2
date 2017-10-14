@@ -1,58 +1,13 @@
 defmodule FpbackendWeb.ActivityController do
-  use Fpbackend.Web, :controller
+  use Fpbackend.Web, :fpbackend_controller
 
-  alias FpbackendWeb.Activity
+  def service(), do: Fpbackend.Services.ActivityService
+  def many_key(), do: :activities
+  def one_key(), do: :activity
 
-  def index(conn, _params) do
-    activities = Repo.all(Activity)
-    render(conn, "index.json", activities: activities)
-  end
-
-  def create(conn, %{"event_id" => event_id, "activity" => activity_params}) do
-    changeset = Activity.changeset(
-      %Activity{event_id: String.to_integer(event_id)},
-      activity_params
-    )
-
-    case Repo.insert(changeset) do
-      {:ok, activity} ->
-        conn
-        |> put_status(:created)
-        |> put_resp_header("location", event_activity_path(conn, :show, event_id, activity))
-        |> render("show.json", activity: activity)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def show(conn, %{"id" => id}) do
-    activity = Repo.get!(Activity, id)
-    render(conn, "show.json", activity: activity)
-  end
-
-  def update(conn, %{"id" => id, "activity" => activity_params}) do
-    activity = Repo.get!(Activity, id)
-    changeset = Activity.changeset(activity, activity_params)
-
-    case Repo.update(changeset) do
-      {:ok, activity} ->
-        render(conn, "show.json", activity: activity)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    activity = Repo.get!(Activity, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(activity)
-
-    send_resp(conn, :no_content, "")
-  end
+  def index(conn, %{"event_id" => event_id}), do: conn |> base_index(service().from_event_query(event_id))
+  def show(conn, %{"event_id" => event_id, "id" => id}), do: conn |> base_show(id, service().from_event_query(event_id))
+  def create(conn, %{"event_id" => event_id, "activity" => activity_params}), do: conn |> base_create(Map.put(activity_params, :event_id, event_id))
+  def update(conn, %{"id" => id, "activity" => activity_params}), do: conn |> base_update(id, activity_params)
+  def delete(conn, %{"id" => id}), do: conn |> base_delete(id)
 end

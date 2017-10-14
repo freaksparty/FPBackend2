@@ -1,11 +1,11 @@
 defmodule FpbackendWeb.UserView do
   use Fpbackend.Web, :view
 
-  def render("index.json", %{users: users}) do
+  def render("many.json", %{users: users}) do
     render_many(users, FpbackendWeb.UserView, "user.json")
   end
 
-  def render("show.json", %{user: user}) do
+  def render("one.json", %{user: user}) do
     render_one(user, FpbackendWeb.UserView, "user.json")
   end
 

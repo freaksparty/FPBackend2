@@ -1,6 +1,17 @@
 defmodule FpbackendWeb.User do
   use Fpbackend.Web, :model
 
+  import Comeonin
+
+  @login_min 3
+  @login_max 25
+
+  @password_min 8
+  @password_max 255
+
+  @name_min 3
+  @name_max 100
+
   schema "users" do
     field :login, :string
     field :password, :string, virtual: true
@@ -12,43 +23,79 @@ defmodule FpbackendWeb.User do
     field :phone, :string
     field :shirt_size, :string
     field :blacklist, :boolean, default: false
-    field :borndate, Ecto.Date
+    field :borndate, Timex.Ecto.Date
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
   def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:login, :password, :name, :dni, :email, :phone, :shirt_size, :borndate])
-    |> validate_required([:login, :password, :name, :dni, :email, :phone, :shirt_size, :borndate])
+    |> required([:login, :password, :name, :dni, :email, :phone, :shirt_size, :borndate])
+    |> validate_login
+    |> validate_password
+    |> validate_name
+    |> validate_dni
+    |> validate_email
+    |> validate_phone
+    |> validate_shirt_size
     |> hash_password
-    |> common_validations
   end
 
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:login, :name, :checked, :dni, :email, :phone, :shirt_size, :blacklist, :borndate])
     |> validate_required([:login, :name, :checked, :dni, :email, :phone, :shirt_size, :blacklist, :borndate])
-    |> common_validations
+    |> validate_login
+    |> validate_password
+    |> validate_name
+    |> validate_dni
+    |> validate_email
+    |> validate_phone
+    |> validate_shirt_size
   end
 
-  defp common_validations(changeset) do
+  defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = user), do: user |> change(password_hash: Comeonin.Bcrypt.hashpwsalt(password))
+  defp hash_password(user), do: user
+
+  # VALIDATIONS
+
+  defp validate_login(changeset) do
     changeset
-    |> unique_constraint(:login)
-    |> unique_constraint(:dni)
-    |> unique_constraint(:email)
-    |> validate_format(:email, ~r/@/)
+    |> min(:login, @login_min)
+    |> max(:login, @login_max)
+    |> unique(:login)
   end
 
-  defp hash_password(changeset) do
-    case changeset.changes do
-      %{password: password} -> put_change(changeset, :password_hash, do_hash(password))
-      _ -> changeset
-    end
+  defp validate_password(changeset) do
+    changeset
+    |> min(:password, @password_min)
+    |> max(:password, @password_max)
   end
 
-  #TODO Refactor validations
+  defp validate_name(changeset) do
+    changeset
+    |> min(:name, @name_min)
+    |> max(:name, @name_max)
+  end
 
-  defp do_hash(value), do: :crypto.hash(:sha512, value) |> Base.encode16 |> String.downcase
+  defp validate_dni(changeset) do
+    #TODO Do dni validation
+    changeset
+    |> unique(:dni)
+  end
+
+  defp validate_email(changeset) do
+    changeset
+    |> email(:email)
+    |> unique(:email)
+  end
+
+  defp validate_phone(changeset) do
+    changeset
+    |> phone(:phone)
+  end
+
+  defp validate_shirt_size(changeset) do
+    changeset
+    |> shirt(:shirt_size)
+  end
 end

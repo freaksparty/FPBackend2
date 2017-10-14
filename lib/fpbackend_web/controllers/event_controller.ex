@@ -1,66 +1,14 @@
 defmodule FpbackendWeb.EventController do
-  use Fpbackend.Web, :controller
+  use Fpbackend.Web, :fpbackend_controller
 
-  alias FpbackendWeb.Event
+  def service(), do: Fpbackend.Services.EventService
+  def many_key(), do: :events
+  def one_key(), do: :event
 
-  def index(conn, _params) do
-    events = Repo.all(Event)
-    render(conn, "index.json", events: events)
-  end
+  def index(conn, _params), do: conn |> base_index()
+  def show(conn, %{"id" => id}), do: conn |> base_show(id)
+  def create(conn, %{"event" => event_params}), do: conn |> base_create(event_params)
+  def update(conn, %{"id" => id, "event" => event_params}), do: conn |> base_update(id, event_params)
+  def delete(conn, %{"id" => id}), do: conn |> base_delete(id)
 
-  def create(conn, %{"event" => event_params}) do
-    changeset = Event.changeset(%Event{}, event_params)
-
-    case Repo.insert(changeset) do
-      {:ok, event} ->
-        conn
-        |> put_status(:created)
-        |> put_resp_header("location", event_path(conn, :show, event))
-        |> render("show.json", event: event)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(FpbackendWeb.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def show(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
-    render(conn, "show.json", event: event)
-  end
-
-  def all_nested(conn, %{"event_id" => id}) do
-    event = Repo.get! nested_all_query(), id
-    render(conn, "show_all.json", event: event)
-  end
-
-  def update(conn, %{"id" => id, "event" => event_params}) do
-    event = Repo.get!(Event, id)
-    changeset = Event.changeset(event, event_params)
-
-    case Repo.update(changeset) do
-      {:ok, event} ->
-        render(conn, "show.json", event: event)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(FpbackendWeb.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(event)
-
-    send_resp(conn, :no_content, "")
-  end
-
-  defp nested_all_query do
-    from event in Event,
-      left_join: activities in assoc(event, :activities),
-      preload: [activities: activities]
-  end
 end

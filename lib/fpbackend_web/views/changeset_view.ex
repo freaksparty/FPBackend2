@@ -1,19 +1,17 @@
 defmodule FpbackendWeb.ChangesetView do
   use Fpbackend.Web, :view
 
-  @doc """
-  Traverses and translates changeset errors.
-
-  See `Ecto.Changeset.traverse_errors/2` and
-  `Fpbackend.ErrorHelpers.translate_error/1` for more details.
-  """
-  def translate_errors(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  def render("error.json", %{changeset: changeset}) do
+    %{errors: parse_errors(changeset.errors)}
   end
 
-  def render("error.json", %{changeset: changeset}) do
-    # When encoded, the changeset returns its errors
-    # as a JSON object. So we just pass it forward.
-    %{errors: translate_errors(changeset)}
+  defp parse_errors(errors), do: parse_errors(%{}, errors)
+
+  defp parse_errors(map, []), do: map
+  defp parse_errors(map, [{field, {message, _}} | errors]) do
+    case Map.get(map, field) do
+      nil -> Map.put(map, field, [message]) |> parse_errors(errors)
+      list -> Map.put(map, field, [message | list]) |> parse_errors(errors)
+    end
   end
 end

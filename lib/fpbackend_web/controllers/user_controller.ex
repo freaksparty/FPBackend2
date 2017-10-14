@@ -1,55 +1,13 @@
 defmodule FpbackendWeb.UserController do
-  use Fpbackend.Web, :controller
+  use Fpbackend.Web, :fpbackend_controller
 
-  alias FpbackendWeb.User
+  def service(), do: Fpbackend.Services.UserService
+  def many_key(), do: :users
+  def one_key(), do: :user
 
-  def index(conn, _params) do
-    users = Repo.all(User)
-    render(conn, "index.json", users: users)
-  end
-
-  def create(conn, %{"user" => user_params}) do
-    changeset = User.registration_changeset(%User{}, user_params)
-
-    case Repo.insert(changeset) do
-      {:ok, user} ->
-        conn
-        |> put_status(:created)
-        |> put_resp_header("location", user_path(conn, :show, user))
-        |> render("show.json", user: user)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.json", user: user)
-  end
-
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
-
-    case Repo.update(changeset) do
-      {:ok, user} ->
-        render(conn, "show.json", user: user)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Fpbackend.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
-
-    send_resp(conn, :no_content, "")
-  end
+  def index(conn, _params), do: conn |> base_index()
+  def show(conn, %{"id" => id}), do: conn |> base_show(id)
+  def create(conn, %{"user" => user_params}), do: conn |> base_create(user_params)
+  def update(conn, %{"id" => id, "user" => user_params}), do: conn |> base_update(id, user_params)
+  def delete(conn, %{"id" => id}), do: conn |> base_delete(id)
 end

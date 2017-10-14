@@ -36,5 +36,7 @@ defmodule FpbackendWeb.Endpoint do
     key: "_fpbackend_key",
     signing_salt: "OMQFwqGV"
 
+  plug Corsica, origins: Application.get_env(:fpbackend, :frontend_domains_allowed), allow_headers: ["content-type"]
+
   plug FpbackendWeb.Router
 end
