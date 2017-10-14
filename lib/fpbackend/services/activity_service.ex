@@ -2,7 +2,6 @@ defmodule Fpbackend.Services.ActivityService do
   use Fpbackend.Web, :fpbackend_service
 
   alias FpbackendWeb.Activity
-  alias FpbackendWeb.Event
 
   def repo(), do: Activity
   def model_struct(), do: %Activity{}

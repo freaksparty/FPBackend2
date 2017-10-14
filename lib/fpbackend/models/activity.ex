@@ -1,8 +1,6 @@
 defmodule FpbackendWeb.Activity do
   use Fpbackend.Web, :model
 
-  #TODO change medium text to text for description in migration
-
   @name_min 3
   @name_max 150
 
@@ -16,7 +14,7 @@ defmodule FpbackendWeb.Activity do
     field :description, :string
     field :image_url, :string
     field :num_participants, :integer
-    field :type, :integer
+    field :type, :string
     field :official, :boolean, default: false
     field :date_start, Timex.Ecto.DateTime
     field :date_end, Timex.Ecto.DateTime
@@ -26,9 +24,7 @@ defmodule FpbackendWeb.Activity do
     belongs_to :event, FpbackendWeb.Event
   end
 
-  #TODO Migration to add not null to description
-
-  #TODO Date checks
+  #TODO: Date checks
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -39,6 +35,7 @@ defmodule FpbackendWeb.Activity do
     |> validate_required([:name, :description, :num_participants, :type, :date_end, :reg_date_close, :event_id])
     |> validate_name
     |> validate_description
+    |> validate_type
     |> validate_image_url
     |> validate_num_participants
   end
@@ -55,6 +52,11 @@ defmodule FpbackendWeb.Activity do
     |> max(:description, @description_max)
   end
 
+  defp validate_type(changeset) do
+    changeset
+    |> activity_types(:type)
+  end
+    
   defp validate_image_url(changeset) do
     changeset
     |> url(:image_url)

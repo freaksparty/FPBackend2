@@ -19,7 +19,7 @@ defmodule Fpbackend.Mixfile do
   def application do
     [mod: {Fpbackend, []},
      applications: [:corsica, :phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mariaex]]
+                    :phoenix_ecto, :postgrex, :timex, :timex_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,7 +33,7 @@ defmodule Fpbackend.Mixfile do
     [{:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.2.0"},
-     {:mariaex, "~> 0.8.2"},
+     {:postgrex, "~> 0.13.3"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:timex, "~> 3.0"},
@@ -50,8 +50,9 @@ defmodule Fpbackend.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+    ["ecto.setup": ["ecto.create", "ecto.migrate", "populate"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+     "test": ["ecto.create --quiet", "ecto.migrate", "test"],
+     "populate": "run priv/repo/seeds.exs"]
   end
 end

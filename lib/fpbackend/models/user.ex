@@ -78,7 +78,7 @@ defmodule FpbackendWeb.User do
   end
 
   defp validate_dni(changeset) do
-    #TODO Do dni validation
+    #TODO: Do dni validation
     changeset
     |> unique(:dni)
   end

@@ -77,5 +77,5 @@ defmodule FpbackendWeb.Event do
     |> max(:rules, @rules_max)
   end
 
-  #TODO validate dates ranges
+  #TODO: validate dates ranges
 end

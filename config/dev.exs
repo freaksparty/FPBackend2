@@ -23,7 +23,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :fpbackend, Fpbackend.Repo,
-  adapter: Ecto.Adapters.MySQL,
+  adapter: Ecto.Adapters.Postgres,
   username: "fpb",
   password: "fpb",
   database: "fpbackend_dev",

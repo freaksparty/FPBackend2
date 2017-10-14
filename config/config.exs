@@ -26,4 +26,4 @@ config :logger, :console,
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
 
-#TODO config PostgreSQL instead MariaEx
+#TODO: config PostgreSQL instead MariaEx

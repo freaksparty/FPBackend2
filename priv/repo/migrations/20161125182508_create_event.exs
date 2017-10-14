@@ -10,8 +10,8 @@ defmodule Fpbackend.Repo.Migrations.CreateEvent do
       add :price, :integer, default: 0
       add :date_start, :date, null: false
       add :date_end, :date, null: false
-      add :reg_date_open, :datetime, null: false
-      add :reg_date_close, :datetime, null: false
+      add :reg_date_open, :utc_datetime, null: false
+      add :reg_date_close, :utc_datetime, null: false
       add :rules, :string
     end
 
