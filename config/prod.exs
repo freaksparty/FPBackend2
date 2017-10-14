@@ -2,7 +2,7 @@ use Mix.Config
 
 config :fpbackend, FpbackendWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "dev-fpbackend.herokuapp.com", port: 80],
+  url: [host: "dev-fpbackend.herokuapp.com", port: System.get_env("PORT")],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
 # Do not print debug messages in production
