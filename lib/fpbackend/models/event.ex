@@ -29,6 +29,7 @@ defmodule FpbackendWeb.Event do
     field :rules, :string
 
     has_many :activities, FpbackendWeb.Activity
+    has_many :sponsors, FpbackendWeb.Sponsor
   end
 
   def changeset(struct, params \\ %{}) do

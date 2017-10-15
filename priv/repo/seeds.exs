@@ -1,11 +1,11 @@
-import Ecto.Query
-
 alias Fpbackend.Repo
 alias FpbackendWeb.Activity
 alias FpbackendWeb.Event
+alias FpbackendWeb.Sponsor
 
 Repo.delete_all Activity
 Repo.delete_all Event
+Repo.delete_all Sponsor
 
 now = Timex.now |> Timex.local
 
@@ -84,6 +84,26 @@ events |> Enum.each(fn(event) ->
         date_end: close_date,
         reg_date_open: reg_open_date,
         reg_date_close: reg_close_date,
+    }
+
+    Repo.insert! %Sponsor{
+        event_id: event.id,
+        name: "Bandai",
+        url: "http://www.bandai.com/",
+        image_url: "http://www.bandai.co.jp/e/shared/img/icon/sns.gif",
+    }
+
+    Repo.insert! %Sponsor{
+        event_id: event.id,
+        name: "DealExtreme",
+        url: "www.dx.com",
+        image_url: "http://www.zurloan.com/wp-content/uploads/2011/08/deal-extreme.png",
+    }
+
+    Repo.insert! %Sponsor{
+        event_id: event.id,
+        name: "Poetry Club",
+        image_url: "https://pbs.twimg.com/profile_images/644264040731136000/_xjq-Xiv.jpg",
     }
 end)
 
