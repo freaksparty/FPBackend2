@@ -40,8 +40,7 @@ defmodule Fpbackend.Mixfile do
      {:timex_ecto, "~> 3.0"},
      {:comeonin, "~> 4.0"},
      {:bcrypt_elixir, "~> 0.12"},
-     {:corsica, "~> 1.0"},
-     {:elixilorem, "~> 0.0.1"}]
+     {:corsica, "~> 1.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
