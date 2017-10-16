@@ -46,36 +46,33 @@ defmodule FpbackendWeb.Event do
 
   defp validate_name(changeset) do
     changeset
-    |> min(:name, @name_min)
-    |> max(:name, @name_max)
+    |> range(:name, @name_min, @name_max)
     |> unique(:name)
   end
 
   defp validate_description(changeset) do
     changeset
-    |> min(:description, @description_min)
-    |> max(:description, @description_max)
+    |> range(:description, @description_min, @description_max)
   end
 
   defp validate_num_participants(changeset) do
     changeset
-    |> min(:num_participants, @num_participants_min)
+    |> min_length(:num_participants, @num_participants_min)
   end
 
   defp validate_minimum_age(changeset) do
     changeset
-    |> min(:minimum_age, @minimum_age_min)
+    |> min_length(:minimum_age, @minimum_age_min)
   end
 
   defp validate_price(changeset) do
     changeset
-    |> min(:price, @price_min)
+    |> min_length(:price, @price_min)
   end
 
   defp validate_rules(changeset) do
     changeset
-    |> min(:rules, @rules_min)
-    |> max(:rules, @rules_max)
+    |> range(:rules, @rules_min, @rules_max)
   end
 
   #TODO: validate dates ranges

@@ -42,14 +42,12 @@ defmodule FpbackendWeb.Activity do
 
   defp validate_name(changeset) do
     changeset
-    |> min(:name, @name_min)
-    |> max(:name, @name_max)
+    |> range(:name, @name_min, @name_max)
   end
 
   defp validate_description(changeset) do
     changeset
-    |> min(:description, @description_min)
-    |> max(:description, @description_max)
+    |> range(:description, @description_min, @description_max)
   end
 
   defp validate_type(changeset) do
@@ -64,7 +62,7 @@ defmodule FpbackendWeb.Activity do
 
   defp validate_num_participants(changeset) do
     changeset
-    |> min(:num_participants, @num_participants_min)
+    |> min_length(:num_participants, @num_participants_min)
   end
 
 end

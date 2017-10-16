@@ -23,8 +23,7 @@ defmodule FpbackendWeb.Sponsor do
 
   defp validate_name(changeset) do
     changeset
-    |> min(:name, @name_min)
-    |> max(:name, @name_max)
+    |> range(:name, @name_min, @name_max)
   end
 
   defp validate_url(changeset) do

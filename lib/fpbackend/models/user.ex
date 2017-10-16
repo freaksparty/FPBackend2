@@ -60,21 +60,18 @@ defmodule FpbackendWeb.User do
 
   defp validate_login(changeset) do
     changeset
-    |> min(:login, @login_min)
-    |> max(:login, @login_max)
+    |> range(:login, @login_min, @login_max)
     |> unique(:login)
   end
 
   defp validate_password(changeset) do
     changeset
-    |> min(:password, @password_min)
-    |> max(:password, @password_max)
+    |> range(:password, @password_min, @password_max)
   end
 
   defp validate_name(changeset) do
     changeset
-    |> min(:name, @name_min)
-    |> max(:name, @name_max)
+    |> range(:name, @name_min, @name_max)
   end
 
   defp validate_dni(changeset) do
