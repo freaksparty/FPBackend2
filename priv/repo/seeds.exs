@@ -2,10 +2,14 @@ alias Fpbackend.Repo
 alias FpbackendWeb.Activity
 alias FpbackendWeb.Event
 alias FpbackendWeb.Sponsor
+alias FpbackendWeb.User
+alias FpbackendWeb.News
 
 Repo.delete_all Activity
 Repo.delete_all Event
 Repo.delete_all Sponsor
+Repo.delete_all User
+Repo.delete_all News
 
 now = Timex.now |> Timex.local
 
@@ -13,6 +17,20 @@ open_date = Timex.shift(now, days: 30)
 close_date = Timex.shift(now, days: 35)
 reg_open_date = Timex.shift(now, days: 20)
 reg_close_date = Timex.shift(now, days: 25)
+
+born_date = Timex.shift(now, years: -20)
+
+Repo.insert! %User{
+    login: "user",
+    password: "gooduser",
+    password_hash: Comeonin.Bcrypt.hashpwsalt("gooduser"),
+    name: "User",
+    dni: "123456789Z",
+    email: "user@user.com",
+    phone: "+34900900900",
+    shirt_size: "M",
+    borndate: born_date
+}
 
 Repo.insert! %Event{
     name: "FicOnEvent",
@@ -28,6 +46,7 @@ Repo.insert! %Event{
 }
 
 events = Repo.all Event
+user = Repo.one User
 
 events |> Enum.each(fn(event) ->
     Repo.insert! %Activity{
@@ -105,5 +124,23 @@ events |> Enum.each(fn(event) ->
         name: "Poetry Club",
         image_url: "https://pbs.twimg.com/profile_images/644264040731136000/_xjq-Xiv.jpg",
     }
+
+    image_url = "https://estaticos.muyinteresante.es/uploads/images/pyr/55520750c0ea197b3fd51098/cuac-pato-p.jpg"
+
+    1..11 |> Enum.each( fn(value) ->
+        Repo.insert! %News{
+            event_id: event.id,
+            creator: user.id,
+            title: "Awesome New #{value}",
+            image_url: (if (:rand.uniform(10) < 6), do: image_url, else: nil),
+            content: Elixilorem.paragraphs(3),
+            reg_date_created: now,
+            reg_date_publish: now,
+            priority: :rand.uniform(10) < 2,
+            priority_hours: :rand.uniform(24)
+        }
+    end)
+
+    
 end)
 

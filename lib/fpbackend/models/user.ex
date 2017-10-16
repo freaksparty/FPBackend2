@@ -24,6 +24,8 @@ defmodule FpbackendWeb.User do
     field :shirt_size, :string
     field :blacklist, :boolean, default: false
     field :borndate, Timex.Ecto.Date
+
+    has_many :news, FpbackendWeb.News, foreign_key: :creator
   end
 
   def registration_changeset(struct, params \\ %{}) do

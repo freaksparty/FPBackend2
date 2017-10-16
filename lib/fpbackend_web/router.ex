@@ -12,6 +12,7 @@ defmodule FpbackendWeb.Router do
       get "/all", EventController, :all_nested
       resources "/activities", ActivityController, except: [:new, :edit]
       resources "/sponsors", SponsorController, except: [:new, :edit]
+      resources "/news", NewsController, except: [:new, :edit]
     end
 
     resources "/users", UserController, except: [:new, :edit]
