@@ -23,4 +23,11 @@ defmodule FpbackendWeb.ActivityView do
       reg_date_open: activity.reg_date_open,
       reg_date_close: activity.reg_date_close}
   end
+
+  def render("basic.json", %{activity: activity}) do
+    %{id: activity.id,
+      name: activity.name,
+      type: activity.type,
+      official: activity.official}
+  end
 end
