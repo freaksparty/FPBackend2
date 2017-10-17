@@ -20,4 +20,9 @@ defmodule FpbackendWeb.UserView do
       shirt_size: user.shirt_size,
       borndate: user.borndate}
   end
+
+  def render("name.json", %{user: user}) do
+    %{id: user.id,
+      name: user.name}
+  end
 end

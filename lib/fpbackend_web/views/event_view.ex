@@ -12,6 +12,7 @@ defmodule FpbackendWeb.EventView do
   def render("all_nested.json", %{event: event}) do
     render("event.json", %{event: event})
     |> Map.put_new(:activities, render_many(event.activities, FpbackendWeb.ActivityView, "basic.json", as: :activity))
+    |> Map.put_new(:news, render_many(event.news, FpbackendWeb.NewsView, "basic.json", as: :news))
   end
 
   def render("event.json", %{event: event}) do
