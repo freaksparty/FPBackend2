@@ -27,7 +27,7 @@ defmodule FpbackendWeb.NewsView do
       creator: render_one(news.user, FpbackendWeb.UserView, "name.json", as: :user),
       title: news.title,
       image_url: news.image_url,
-      reg_date_created: news.reg_date_created,
+      reg_date_publish: news.reg_date_publish,
       priority: news.priority,
       priority_hours: news.priority_hours}
   end

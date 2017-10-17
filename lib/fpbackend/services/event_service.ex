@@ -11,7 +11,7 @@ defmodule Fpbackend.Services.EventService do
   def with_all_nested_query() do
     activity_fields = [:id, :name, :type, :official]
     user_fields = [:id, :name]
-    news_fields = [:id, :title, :image_url, :reg_date_created, :priority, :priority_hours,
+    news_fields = [:id, :title, :image_url, :reg_date_publish, :priority, :priority_hours,
                    user: user_fields]
     event_fields = [:id, :name, :description, :num_participants, :minimum_age, :price, :date_start, :date_end, :reg_date_open, :reg_date_close, :rules,
                     activities: activity_fields, 
