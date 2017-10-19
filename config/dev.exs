@@ -31,3 +31,11 @@ config :fpbackend, Fpbackend.Repo,
   pool_size: 10
 
 config :fpbackend, :frontend_domains_allowed, "*"
+
+config :fpbackend, Fpbackend.Guardian,
+  issuer: "freaksparty",
+  secret_key: "qfXdFLgMfCeGf584L8k6lLbwpJuIBkjsHrMVCP8pCHhAdple0BnTcel5UKKLTY+0",
+  token_ttl: %{
+    "refresh" => {30, :weeks},
+    "access" => {3, :hours}
+  }

@@ -40,7 +40,9 @@ defmodule Fpbackend.Mixfile do
      {:timex_ecto, "~> 3.0"},
      {:comeonin, "~> 4.0"},
      {:bcrypt_elixir, "~> 0.12"},
-     {:corsica, "~> 1.0"}]
+     {:corsica, "~> 1.0"},
+     {:guardian, "~> 1.0-beta"},
+     {:guardian_db, git: "https://github.com/ueberauth/guardian_db", branch: "master"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -16,5 +16,11 @@ defmodule FpbackendWeb.Router do
     end
 
     resources "/users", UserController, except: [:new, :edit]
+
+    scope "/auth" do
+      post "/", AuthController, :sign_in
+      put "/", AuthController, :exchange
+      delete "/", AuthController, :sign_out
+    end
   end
 end

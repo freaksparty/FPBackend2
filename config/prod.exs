@@ -14,3 +14,11 @@ config :fpbackend, Fpbackend.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 config :fpbackend, :frontend_domains_allowed, Map.fetch!(System.get_env(), "FRONTEND_DOMAINS")
+
+config :fpbackend, Fpbackend.Guardian,
+  issuer: "freaksparty",
+  secret_key: System.get_env("AUTH_SECRET"),
+  token_ttl: %{
+    "refresh" => {30, :weeks},
+    "access" => {3, :hours}
+  }

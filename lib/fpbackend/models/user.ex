@@ -55,6 +55,8 @@ defmodule FpbackendWeb.User do
     |> validate_shirt_size
   end
 
+  def check_password(password, user_password), do: Comeonin.Bcrypt.checkpw(password, user_password)
+
   defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = user), do: user |> change(password_hash: Comeonin.Bcrypt.hashpwsalt(password))
   defp hash_password(user), do: user
 
