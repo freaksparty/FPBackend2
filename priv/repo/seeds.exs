@@ -22,19 +22,18 @@ reg_close_date = Timex.shift(now, days: 25)
 
 born_date = Timex.shift(now, years: -20)
 
-Repo.insert! %User{
+Repo.insert! User.registration_changeset(%User{}, %{
     login: "user",
     password: "gooduser",
-    password_hash: Comeonin.Bcrypt.hashpwsalt("gooduser"),
     name: "User",
     dni: "123456789Z",
     email: "user@user.com",
-    phone: "+34900900900",
+    phone: "900900900",
     shirt_size: "M",
     borndate: born_date
-}
+})
 
-Repo.insert! %Event{
+Repo.insert! Event.changeset(%Event{}, %{
     name: "FicOnEvent",
     description: "Amazing event created by Freaks Party. All is amazing when it is, indeed, amazing",
     num_participants: 150,
@@ -45,13 +44,13 @@ Repo.insert! %Event{
     reg_date_open: reg_open_date,
     reg_date_close: reg_close_date,
     rules: "Don't tell anyone about FicOnEvent"
-}
+})
 
 events = Repo.all Event
 user = Repo.one User
 
 events |> Enum.each(fn(event) ->
-    Repo.insert! %Activity{
+    Repo.insert! Activity.changeset(%Activity{}, %{
         event_id: event.id,
         name: "Awesome Workshop",
         description: "Best production ever. Build your own Panda bears.",
@@ -63,9 +62,9 @@ events |> Enum.each(fn(event) ->
         date_end: close_date,
         reg_date_open: reg_open_date,
         reg_date_close: reg_close_date,
-    }
+    })
 
-    Repo.insert! %Activity{
+    Repo.insert! Activity.changeset(%Activity{}, %{
         event_id: event.id,
         name: "Awesome Production",
         description: "Make the higher cookies tower in the world",
@@ -77,9 +76,9 @@ events |> Enum.each(fn(event) ->
         date_end: close_date,
         reg_date_open: reg_open_date,
         reg_date_close: reg_close_date,
-    }
+    })
 
-    Repo.insert! %Activity{
+    Repo.insert!Activity.changeset( %Activity{}, %{
         event_id: event.id,
         name: "Awesome Tournament",
         description: "Arkanoid tournament. Preliminar rounds for Mundial.",
@@ -91,9 +90,9 @@ events |> Enum.each(fn(event) ->
         date_end: close_date,
         reg_date_open: reg_open_date,
         reg_date_close: reg_close_date,
-    }
+    })
 
-    Repo.insert! %Activity{
+    Repo.insert! Activity.changeset(%Activity{}, %{
         event_id: event.id,
         name: "Bored Conference",
         description: "Talk about if neighbours are who choose mayor and if mayor is who wants to be the neighbours, mayor",
@@ -105,32 +104,32 @@ events |> Enum.each(fn(event) ->
         date_end: close_date,
         reg_date_open: reg_open_date,
         reg_date_close: reg_close_date,
-    }
+    })
 
-    Repo.insert! %Sponsor{
+    Repo.insert! Sponsor.changeset(%Sponsor{}, %{
         event_id: event.id,
         name: "Bandai",
         url: "http://www.bandai.com/",
         image_url: "http://www.bandai.co.jp/e/shared/img/icon/sns.gif",
-    }
+    })
 
-    Repo.insert! %Sponsor{
+    Repo.insert! Sponsor.changeset(%Sponsor{}, %{
         event_id: event.id,
         name: "DealExtreme",
         url: "www.dx.com",
         image_url: "http://www.zurloan.com/wp-content/uploads/2011/08/deal-extreme.png",
-    }
+    })
 
-    Repo.insert! %Sponsor{
+    Repo.insert! Sponsor.changeset(%Sponsor{}, %{
         event_id: event.id,
         name: "Poetry Club",
         image_url: "https://pbs.twimg.com/profile_images/644264040731136000/_xjq-Xiv.jpg",
-    }
+    })
 
     image_url = "https://estaticos.muyinteresante.es/uploads/images/pyr/55520750c0ea197b3fd51098/cuac-pato-p.jpg"
 
     1..11 |> Enum.each( fn(value) ->
-        Repo.insert! %News{
+        Repo.insert! News.changeset(%News{}, %{
             event_id: event.id,
             creator: user.id,
             title: "Awesome New #{value}",
@@ -140,7 +139,7 @@ events |> Enum.each(fn(event) ->
             reg_date_publish: now,
             priority: :rand.uniform(10) < 2,
             priority_hours: :rand.uniform(24)
-        }
+        })
     end)
 
     

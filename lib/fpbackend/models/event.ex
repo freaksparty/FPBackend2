@@ -58,17 +58,17 @@ defmodule FpbackendWeb.Event do
 
   defp validate_num_participants(changeset) do
     changeset
-    |> min_length(:num_participants, @num_participants_min)
+    |> min_count(:num_participants, @num_participants_min)
   end
 
   defp validate_minimum_age(changeset) do
     changeset
-    |> min_length(:minimum_age, @minimum_age_min)
+    |> min_count(:minimum_age, @minimum_age_min)
   end
 
   defp validate_price(changeset) do
     changeset
-    |> min_length(:price, @price_min)
+    |> min_count(:price, @price_min)
   end
 
   defp validate_rules(changeset) do

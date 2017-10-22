@@ -84,7 +84,10 @@ defmodule Fpbackend.Web do
       def acceptance(changeset, field), do: validate_acceptance(changeset, field, message: "consent")
       def min_length(changeset, field, value), do: validate_length(changeset, field, min: value, message: "min:#{value}")
       def max_length(changeset, field, value), do: validate_length(changeset, field, max: value, message: "max:#{value}")
+      def min_count(changeset, field, value), do: validate_number(changeset, field, greater_than_or_equal_to: value, message: "min:#{value}")
+      def max_count(changeset, field, value), do: validate_number(changeset, field, less_than_or_equal_to: value, message: "max:#{value}")
       def range(changeset, field, min_value, max_value), do: changeset |> min_length(field, min_value) |> max_length(field, max_value)
+      def range_count(changeset, field, min_value, max_value), do: changeset |> min_count(field, min_value) |> max_count(field, max_value)
       def inclusion(changeset, field, list), do: validate_inclusion(changeset, field, list, message: "inclusion")
 
       def email(changeset, field), do: format(changeset, field, ~r/(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)/)

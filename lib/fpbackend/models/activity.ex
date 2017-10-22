@@ -62,7 +62,7 @@ defmodule FpbackendWeb.Activity do
 
   defp validate_num_participants(changeset) do
     changeset
-    |> min_length(:num_participants, @num_participants_min)
+    |> min_count(:num_participants, @num_participants_min)
   end
 
 end

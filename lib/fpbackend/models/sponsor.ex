@@ -14,8 +14,8 @@ defmodule FpbackendWeb.Sponsor do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :url, :image_url])
-    |> validate_required([:name, :image_url])
+    |> cast(params, [:name, :url, :image_url, :event_id])
+    |> validate_required([:name, :image_url, :event_id])
     |> validate_name
     |> validate_url
     |> validate_image_url
