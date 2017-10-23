@@ -8,8 +8,8 @@ defmodule FpbackendWeb.News do
   @content_max 65536
 
   @priority_hours_min 0
-  @description_length 200
-  @description_ellipsis "..."
+  @summary_length 200
+  @summary_ellipsis "..."
 
   # TODO: Validate dates ranges
 
@@ -17,7 +17,7 @@ defmodule FpbackendWeb.News do
     field :title, :string
     field :image_url, :string
     field :content, :string
-    field :description, :string
+    field :summary, :string
     field :reg_date_created, Timex.Ecto.DateTime
     field :reg_date_publish, Timex.Ecto.DateTime
     field :priority, :boolean, default: false
@@ -35,7 +35,7 @@ defmodule FpbackendWeb.News do
     |> validate_content
     |> validate_image_url
     |> validate_priority_hours
-    |> generate_description
+    |> generate_summary
   end
 
   defp validate_title(changeset) do
@@ -58,14 +58,14 @@ defmodule FpbackendWeb.News do
     |> min_count(:priority_hours, @priority_hours_min)
   end
 
-  defp generate_description(%Ecto.Changeset{valid?: true, changes: %{content: content}} = news), do: news |> change(description: create_description(content))
-  defp generate_description(news), do: news
+  defp generate_summary(%Ecto.Changeset{valid?: true, changes: %{content: content}} = news), do: news |> change(summary: create_summary(content))
+  defp generate_summary(news), do: news
 
-  defp create_description(content) when length(content) < @description_length, do: content
-  defp create_description(content) do
+  defp create_summary(content) when length(content) < @summary_length, do: content
+  defp create_summary(content) do
     first = 0
-    last = @description_length - 1 - String.length(@description_ellipsis)
+    last = @summary_length - 1 - String.length(@summary_ellipsis)
 
-    String.slice(content, first..last) <> @description_ellipsis
+    String.slice(content, first..last) <> @summary_ellipsis
   end
 end
