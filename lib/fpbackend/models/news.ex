@@ -18,8 +18,8 @@ defmodule FpbackendWeb.News do
     field :image_url, :string
     field :content, :string
     field :summary, :string
-    field :reg_date_created, Timex.Ecto.DateTime
-    field :reg_date_publish, Timex.Ecto.DateTime
+    field :created_at, Timex.Ecto.DateTime
+    field :published_at, Timex.Ecto.DateTime
     field :priority, :boolean, default: false
     field :priority_hours, :integer, default: 0
 
@@ -29,7 +29,7 @@ defmodule FpbackendWeb.News do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :image_url, :content, :reg_date_created, :reg_date_publish, :priority, :priority_hours, :event_id, :creator])
+    |> cast(params, [:title, :image_url, :content, :created_at, :published_at, :priority, :priority_hours, :event_id, :creator])
     |> validate_required([:title, :content, :event_id, :creator])
     |> validate_title
     |> validate_content

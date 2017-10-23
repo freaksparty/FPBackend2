@@ -5,6 +5,10 @@ defmodule FpbackendWeb.NewsView do
     render_many(news, FpbackendWeb.NewsView, "news.json")
   end
 
+  def render("many.json", %{basic_news: news}) do
+    render_many(news, FpbackendWeb.NewsView, "basic.json")
+  end
+
   def render("one.json", %{news: news}) do
     render_one(news, FpbackendWeb.NewsView, "news.json")
   end
@@ -17,8 +21,8 @@ defmodule FpbackendWeb.NewsView do
       image_url: news.image_url,
       content: news.content,
       summary: news.summary,
-      reg_date_created: news.reg_date_created,
-      reg_date_publish: news.reg_date_publish,
+      created_at: news.created_at,
+      published_at: news.published_at,
       priority: news.priority,
       priority_hours: news.priority_hours}
   end
@@ -29,8 +33,7 @@ defmodule FpbackendWeb.NewsView do
       title: news.title,
       summary: news.summary,
       image_url: news.image_url,
-      reg_date_publish: news.reg_date_publish,
-      priority: news.priority,
-      priority_hours: news.priority_hours}
+      published_at: news.published_at,
+      priority: news.priority}
   end
 end

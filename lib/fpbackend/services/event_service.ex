@@ -15,8 +15,6 @@ defmodule Fpbackend.Services.EventService do
 
     from event in Event, 
       left_join: activities in assoc(event, :activities),
-      left_join: news in assoc(event, :news),
-      left_join: user in assoc(news, :user),
       preload: [activities: activities],
       select: map(event, ^event_fields) 
   end

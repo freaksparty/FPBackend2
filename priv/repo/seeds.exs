@@ -129,15 +129,16 @@ events |> Enum.each(fn(event) ->
     image_url = "https://estaticos.muyinteresante.es/uploads/images/pyr/55520750c0ea197b3fd51098/cuac-pato-p.jpg"
 
     1..11 |> Enum.each( fn(value) ->
+        created = Timex.now
         Repo.insert! News.changeset(%News{}, %{
             event_id: event.id,
             creator: user.id,
             title: "Awesome New #{value}",
             image_url: (if (:rand.uniform(10) < 6), do: image_url, else: nil),
             content: lorem,
-            reg_date_created: now,
-            reg_date_publish: now,
-            priority: :rand.uniform(10) < 2,
+            created_at: created,
+            published_at: created,
+            priority: :rand.uniform(10) < 3,
             priority_hours: :rand.uniform(24)
         })
     end)

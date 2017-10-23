@@ -131,7 +131,7 @@ defmodule Fpbackend.Web do
 
       @behaviour FpbackendWeb.Controller
 
-      def base_index(conn, query \\ :repo), do: with data <- service().all(query), do: conn |> assign(many_key(), data) |> ok(:ok, "many.json")
+      def base_index(conn, query \\ :repo, key \\ many_key()), do: with data <- service().all(query), do: conn |> assign(key, data) |> ok(:ok, "many.json")
       def base_show(conn, id, query \\ :repo), do: with {:ok, data} <- service().one(id, query), do: conn |> assign(one_key(), data) |> ok(:ok, "one.json")
       def base_create(conn, params), do: with {:ok, data} <- service().create(params), do: conn |> ok(:created)
       def base_update(conn, id, params), do: with {:ok, data} <- service().update(id, params), do: conn |> assign(one_key(), data) |> ok(:ok, "one.json")
