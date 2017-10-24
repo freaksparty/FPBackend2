@@ -9,8 +9,6 @@ defmodule FpbackendWeb.Router do
     pipe_through :api
 
     resources "/events", EventController, except: [:new, :edit] do
-      get "/all", EventController, :all_nested
-      
       resources "/activities", ActivityController, except: [:new, :edit]
       resources "/sponsors", SponsorController, except: [:new, :edit]
       resources "/news", NewsController, except: [:new, :edit]
